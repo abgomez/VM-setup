@@ -1,0 +1,23 @@
+--- Install Sawtooth
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AA7AF1F1091A5FD
+sudo add-apt-repository 'deb http://repo.sawtooth.me/ubuntu/1.0/stable xenial universe'
+sudo apt-get update
+sudo apt-get -y install sawtooth
+
+
+---------------------------------raft consensus-----------------------------------------
+--- Install RAFT Engine
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 8AA7AF1F1091A5FD
+sudo apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 8AA7AF1F1091A5FD
+sudo add-apt-repository 'deb [arch=amd64] http://repo.sawtooth.me/ubuntu/bumper/stable xenial universe'
+sudo apt-get update
+sudo apt-get -y install sawtooth-raft-engine
+
+#change consensus on-fly
+sawset proposal create -k keys/validator.priv \
+sawtooth.consensus.algorithm=raft \
+sawtooth.consensus.raft.peers=["0233309a37749a7eaa6e9d5facc6ae83c05a33d614dcbceeb42130786aa333927b","029f018ad884b7a417b4708bf8dcb67ebb0c69a68c9311faa56228613c449b03c9"]
+
+raft-engine -v --connect tcp://127.0.0.1:1001
+
+

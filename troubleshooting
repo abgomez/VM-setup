@@ -1,0 +1,4 @@
+--- Known problems
+ -- Docker and CORE
+  - DO NOT install CORE and docker in the same machine, it cause some weird error where the gui of CORE is not able to communicate witht the daemon. last time i did, i had to start fresh.
+

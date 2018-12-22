@@ -1,0 +1,11 @@
+-- Install CORE
+sudo apt-get install core-network
+
+-- Install quagga
+sudo apt-get install quagga
+
+-- Start CORE daemon
+sudo /etc/init.d/core-daemon start
+
+-- Start CORE GUI
+sudo core-gui
