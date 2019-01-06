@@ -17,7 +17,7 @@ node n2 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -74,7 +74,7 @@ node n3 {
 	custom-command UserDefined
 	config {
 	files=('genesis.sh', )
-	cmdup=('sh genesis.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-genesis.sh', )
 	}
     }
     custom-config {
@@ -150,7 +150,7 @@ node n4 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -207,7 +207,7 @@ node n5 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -264,7 +264,7 @@ node n6 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -321,7 +321,7 @@ node n8 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -378,7 +378,7 @@ node n9 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -435,7 +435,7 @@ node n10 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -492,7 +492,7 @@ node n11 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -549,7 +549,7 @@ node n12 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -626,15 +626,15 @@ node n14 {
 	!
     }
     canvas c1
-    iconcoords {269.0 348.0}
-    labelcoords {269.0 380.0}
+    iconcoords {267.0 346.0}
+    labelcoords {267.0 378.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -820,7 +820,7 @@ node n17 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -869,15 +869,15 @@ node n15 {
 	!
     }
     canvas c1
-    iconcoords {447.0 497.0}
-    labelcoords {447.0 529.0}
+    iconcoords {410.0 482.0}
+    labelcoords {410.0 514.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
@@ -926,15 +926,15 @@ node n18 {
 	!
     }
     canvas c1
-    iconcoords {330.0 509.0}
-    labelcoords {330.0 541.0}
+    iconcoords {309.0 520.0}
+    labelcoords {309.0 552.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh client.sh', )
+	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
 	}
     }
     custom-config {
