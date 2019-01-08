@@ -321,30 +321,41 @@ node n8 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.9.20:1003,tcp://10.0.10.20:1003,tcp://10.0.11.20:1003,tcp://10.0.12.20:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -378,30 +389,41 @@ node n9 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.8.20:1003,tcp://10.0.10.20:1003,tcp://10.0.11.20:1003,tcp://10.0.12.20:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -435,30 +457,41 @@ node n10 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.9.20:1003,tcp://10.0.8.20:1003,tcp://10.0.11.20:1003,tcp://10.0.12.20:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -492,30 +525,41 @@ node n11 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.9.20:1003,tcp://10.0.10.20:1003,tcp://10.0.8.20:1003,tcp://10.0.12.20:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -549,30 +593,41 @@ node n12 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.9.20:1003,tcp://10.0.10.20:1003,tcp://10.0.11.20:1003,tcp://10.0.8.20:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -626,38 +681,49 @@ node n14 {
 	!
     }
     canvas c1
-    iconcoords {267.0 346.0}
-    labelcoords {267.0 378.0}
+    iconcoords {283.0 354.0}
+    labelcoords {283.0 386.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.13.21:1003,tcp://10.0.13.22:1003,tcp://10.0.13.23:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -820,30 +886,41 @@ node n17 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.13.20:1003,tcp://10.0.13.21:1003,tcp://10.0.13.23:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -877,30 +954,41 @@ node n15 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.13.20:1003,tcp://10.0.13.22:1003,tcp://10.0.13.23:1003  &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -934,30 +1022,41 @@ node n18 {
 	custom-command UserDefined
 	config {
 	files=('client.sh', )
-	cmdup=('sh /home/manhattan/Desktop/demo/POET-client.sh', )
+	cmdup=('sh client.sh', )
 	}
     }
     custom-config {
 	custom-config-id service:UserDefined:client.sh
 	custom-command client.sh
 	config {
-	#path setup
-	mkdir data
-	mkdir logs
-	mkdir keys
-	
-	export SAWTOOTH_HOME=`pwd`
+	cd /home/manhattan/Desktop/demo/POET
 	
 	#get ip address
 	IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1' | head -n 1)
 	
+	#setup work directory
+	if [ -d "$IP" ]; then
+	  echo "Everything ready, start sawtooth"
+	else
+	  mkdir $IP
+	  cd /home/manhattan/Desktop/demo/POET/$IP
+	  mkdir data
+	  mkdir logs
+	  mkdir keys
 	
-	#keys
-	sawadm keygen
-	sawtooth keygen
+	  export SAWTOOTH_HOME=`pwd`
+	
+	  #keys
+	  sawadm keygen
+	  sawtooth keygen
+	fi
+	
+	cd /home/manhattan/Desktop/demo/POET/$IP
+	export SAWTOOTH_HOME=`pwd`
+	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.0.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.13.20:1003,tcp://10.0.13.21:1003,tcp://10.0.13.22:1003 &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
