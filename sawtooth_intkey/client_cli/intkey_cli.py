@@ -28,14 +28,13 @@ from sawtooth_intkey.client_cli.generate import do_generate
 from sawtooth_intkey.client_cli.populate import add_populate_parser
 from sawtooth_intkey.client_cli.populate import do_populate
 from sawtooth_intkey.client_cli.create_batch import add_create_batch_parser
-#from sawtooth_intkey.client_cli.create_batch import do_create_batch
 from client_cli.create_batch import do_create_batch
 from sawtooth_intkey.client_cli.load import add_load_parser
 from sawtooth_intkey.client_cli.load import do_load
 from sawtooth_intkey.client_cli.intkey_workload import add_workload_parser
 from sawtooth_intkey.client_cli.intkey_workload import do_workload
 
-from sawtooth_intkey.client_cli.intkey_client import IntkeyClient
+from client_cli.intkey_client import IntkeyClient
 from sawtooth_intkey.client_cli.exceptions import IntKeyCliException
 from sawtooth_intkey.client_cli.exceptions import IntkeyClientException
 
@@ -145,6 +144,11 @@ def add_set_parser(subparsers, parent_parser):
         help='amount to set')
 
     parser.add_argument(
+        'value1',
+        type=int,
+        help='amount to set')
+
+    parser.add_argument(
         '--url',
         type=str,
         help='specify URL of REST API')
@@ -163,9 +167,9 @@ def add_set_parser(subparsers, parent_parser):
 
 
 def do_set(args):
-    name, value, wait = args.name, args.value, args.wait
+    name, value, value1, wait = args.name, args.value, args.value1, args.wait
     client = _get_client(args)
-    response = client.set(name, value, wait)
+    response = client.set(name, value, value1, wait)
     print(response)
 
 
