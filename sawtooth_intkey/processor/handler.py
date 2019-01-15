@@ -58,24 +58,27 @@ class IntkeyTransactionHandler(TransactionHandler):
         return [INTKEY_ADDRESS_PREFIX]
 
     def apply(self, transaction, context):
-        verb, name, value, value1 = _unpack_transaction(transaction)
+        verb, name, value, value1, value2, value3, value4 = _unpack_transaction(transaction)
 
         state = _get_state_data(name, context)
 
-        updated_state = _do_intkey(verb, name, value, value1, state)
+        updated_state = _do_intkey(verb, name, value, value1, value2, value3, value4, state)
 
         _set_state_data(name, updated_state, context)
 
 
 def _unpack_transaction(transaction):
-    verb, name, value, value1 = _decode_transaction(transaction)
+    verb, name, value, value1, value2, value3, value4 = _decode_transaction(transaction)
 
     _validate_verb(verb)
     _validate_name(name)
     _validate_value(value)
     _validate_value(value1)
+    _validate_value(value2)
+    _validate_value(value3)
+    _validate_value(value4)
 
-    return verb, name, value, value1
+    return verb, name, value, value1, value2, value3, value4
 
 
 def _decode_transaction(transaction):
@@ -104,7 +107,22 @@ def _decode_transaction(transaction):
     except AttributeError:
         raise InvalidTransaction('Value is required')
 
-    return verb, name, value, value1
+    try:
+        value2 = content['Value2']
+    except AttributeError:
+        raise InvalidTransaction('Value is required')
+
+    try:
+        value3 = content['Value3']
+    except AttributeError:
+        raise InvalidTransaction('Value is required')
+
+    try:
+        value4 = content['Value4']
+    except AttributeError:
+        raise InvalidTransaction('Value is required')
+
+    return verb, name, value, value1, value2, value3, value4
 
 
 def _validate_verb(verb):
@@ -152,7 +170,7 @@ def _set_state_data(name, state, context):
         raise InternalError('State error')
 
 
-def _do_intkey(verb, name, value, value1, state):
+def _do_intkey(verb, name, value, value1, value2, value3, value4, state):
     verbs = {
         'set': _do_set,
         'inc': _do_inc,
@@ -160,14 +178,14 @@ def _do_intkey(verb, name, value, value1, state):
     }
 
     try:
-        return verbs[verb](name, value, value1, state)
+        return verbs[verb](name, value, value1, value2, value3, value4, state)
     except KeyError:
         # This would be a programming error.
         raise InternalError('Unhandled verb: {}'.format(verb))
 
 
-def _do_set(name, value, value1, state):
-    print ("Setting {n} to {v}, {v1}".format(n=name, v=value, v1=value1))
+def _do_set(name, value, value1, value2, value3, value4, state):
+    print ("Setting {n} to {v}, {v1}, {v2}, {v3}, {v4}".format(n=name, v=value, v1=value1, v2=value2, v3=value3, v4=value4))
     msg = 'Setting "{n}" to {v}'.format(n=name, v=value)
     LOGGER.debug(msg)
 
@@ -178,11 +196,9 @@ def _do_set(name, value, value1, state):
                 v=state[name]))
 
     updated = {k: v for k, v in state.items()}
-    print (updated)
-    for k in updated.items():
-        print (updated[k])
-    updated[name] = str(value) + ',' + str(value1)
-    print (updated[name])
+    #print (updated)
+    updated[name] = str(value) + ',' + str(value1) + ',' + str(value2) + ',' + str(value3) + ',' + str(value4)
+    #print (updated[name])
 
     return updated
 

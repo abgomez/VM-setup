@@ -27,7 +27,7 @@ from sawtooth_intkey.client_cli.generate import add_generate_parser
 from sawtooth_intkey.client_cli.generate import do_generate
 from sawtooth_intkey.client_cli.populate import add_populate_parser
 from sawtooth_intkey.client_cli.populate import do_populate
-from sawtooth_intkey.client_cli.create_batch import add_create_batch_parser
+from client_cli.create_batch import add_create_batch_parser
 from client_cli.create_batch import do_create_batch
 from sawtooth_intkey.client_cli.load import add_load_parser
 from sawtooth_intkey.client_cli.load import do_load
@@ -110,16 +110,16 @@ def create_parser(prog_name):
     subparsers = parser.add_subparsers(title='subcommands', dest='command')
 
     add_set_parser(subparsers, parent_parser)
-    add_inc_parser(subparsers, parent_parser)
-    add_dec_parser(subparsers, parent_parser)
+    # add_inc_parser(subparsers, parent_parser)
+    # add_dec_parser(subparsers, parent_parser)
     add_show_parser(subparsers, parent_parser)
     add_list_parser(subparsers, parent_parser)
 
-    add_generate_parser(subparsers, parent_parser)
+    # add_generate_parser(subparsers, parent_parser)
     add_load_parser(subparsers, parent_parser)
-    add_populate_parser(subparsers, parent_parser)
+    # add_populate_parser(subparsers, parent_parser)
     add_create_batch_parser(subparsers, parent_parser)
-    add_workload_parser(subparsers, parent_parser)
+    # add_workload_parser(subparsers, parent_parser)
 
     return parser
 
@@ -149,48 +149,19 @@ def add_set_parser(subparsers, parent_parser):
         help='amount to set')
 
     parser.add_argument(
-        '--url',
-        type=str,
-        help='specify URL of REST API')
-
-    parser.add_argument(
-        '--keyfile',
-        type=str,
-        help="identify file containing user's private key")
-
-    parser.add_argument(
-        '--wait',
-        nargs='?',
-        const=sys.maxsize,
+        'value2',
         type=int,
-        help='set time, in seconds, to wait for transaction to commit')
-
-
-def do_set(args):
-    name, value, value1, wait = args.name, args.value, args.value1, args.wait
-    client = _get_client(args)
-    response = client.set(name, value, value1, wait)
-    print(response)
-
-
-def add_inc_parser(subparsers, parent_parser):
-    message = 'Sends an intkey transaction to increment <name> by <value>.'
-
-    parser = subparsers.add_parser(
-        'inc',
-        parents=[parent_parser],
-        description=message,
-        help='Increments an intkey value')
+        help='amount to set')
 
     parser.add_argument(
-        'name',
-        type=str,
-        help='identify name of key to increment')
-
-    parser.add_argument(
-        'value',
+        'value3',
         type=int,
-        help='specify amount to increment')
+        help='amount to set')
+
+    parser.add_argument(
+        'value4',
+        type=int,
+        help='amount to set')
 
     parser.add_argument(
         '--url',
@@ -210,55 +181,99 @@ def add_inc_parser(subparsers, parent_parser):
         help='set time, in seconds, to wait for transaction to commit')
 
 
-def do_inc(args):
-    name, value, wait = args.name, args.value, args.wait
+def do_set(args):
+    name, value, value1, value2, value3, value4, wait = args.name, args.value, args.value1, args.value2, args.value3, args.value4, args.wait
     client = _get_client(args)
-    response = client.inc(name, value, wait)
+    response = client.set(name, value, value1, value2, value3, value4, wait)
     print(response)
 
 
-def add_dec_parser(subparsers, parent_parser):
-    message = 'Sends an intkey transaction to decrement <name> by <value>.'
-
-    parser = subparsers.add_parser(
-        'dec',
-        parents=[parent_parser],
-        description=message,
-        help='Decrements an intkey value')
-
-    parser.add_argument(
-        'name',
-        type=str,
-        help='identify name of key to decrement')
-
-    parser.add_argument(
-        'value',
-        type=int,
-        help='amount to decrement')
-
-    parser.add_argument(
-        '--url',
-        type=str,
-        help='specify URL of REST API')
-
-    parser.add_argument(
-        '--keyfile',
-        type=str,
-        help="identify file containing user's private key")
-
-    parser.add_argument(
-        '--wait',
-        nargs='?',
-        const=sys.maxsize,
-        type=int,
-        help='set time, in seconds, to wait for transaction to commit')
-
-
-def do_dec(args):
-    name, value, wait = args.name, args.value, args.wait
-    client = _get_client(args)
-    response = client.dec(name, value, wait)
-    print(response)
+# def add_inc_parser(subparsers, parent_parser):
+#     message = 'Sends an intkey transaction to increment <name> by <value>.'
+#
+#     parser = subparsers.add_parser(
+#         'inc',
+#         parents=[parent_parser],
+#         description=message,
+#         help='Increments an intkey value')
+#
+#     parser.add_argument(
+#         'name',
+#         type=str,
+#         help='identify name of key to increment')
+#
+#     parser.add_argument(
+#         'value',
+#         type=int,
+#         help='specify amount to increment')
+#
+#     parser.add_argument(
+#         '--url',
+#         type=str,
+#         help='specify URL of REST API')
+#
+#     parser.add_argument(
+#         '--keyfile',
+#         type=str,
+#         help="identify file containing user's private key")
+#
+#     parser.add_argument(
+#         '--wait',
+#         nargs='?',
+#         const=sys.maxsize,
+#         type=int,
+#         help='set time, in seconds, to wait for transaction to commit')
+#
+#
+# def do_inc(args):
+#     name, value, wait = args.name, args.value, args.wait
+#     client = _get_client(args)
+#     response = client.inc(name, value, wait)
+#     print(response)
+#
+#
+# def add_dec_parser(subparsers, parent_parser):
+#     message = 'Sends an intkey transaction to decrement <name> by <value>.'
+#
+#     parser = subparsers.add_parser(
+#         'dec',
+#         parents=[parent_parser],
+#         description=message,
+#         help='Decrements an intkey value')
+#
+#     parser.add_argument(
+#         'name',
+#         type=str,
+#         help='identify name of key to decrement')
+#
+#     parser.add_argument(
+#         'value',
+#         type=int,
+#         help='amount to decrement')
+#
+#     parser.add_argument(
+#         '--url',
+#         type=str,
+#         help='specify URL of REST API')
+#
+#     parser.add_argument(
+#         '--keyfile',
+#         type=str,
+#         help="identify file containing user's private key")
+#
+#     parser.add_argument(
+#         '--wait',
+#         nargs='?',
+#         const=sys.maxsize,
+#         type=int,
+#         help='set time, in seconds, to wait for transaction to commit')
+#
+#
+# def do_dec(args):
+#     name, value, wait = args.name, args.value, args.wait
+#     client = _get_client(args)
+#     response = client.dec(name, value, wait)
+#     print(response)
 
 
 def add_show_parser(subparsers, parent_parser):
@@ -349,24 +364,24 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 
     if args.command == 'set':
         do_set(args)
-    elif args.command == 'inc':
-        do_inc(args)
-    elif args.command == 'dec':
-        do_dec(args)
+    # elif args.command == 'inc':
+    #     do_inc(args)
+    # elif args.command == 'dec':
+    #     do_dec(args)
     elif args.command == 'show':
         do_show(args)
     elif args.command == 'list':
         do_list(args)
-    elif args.command == 'generate':
-        do_generate(args)
-    elif args.command == 'populate':
-        do_populate(args)
+    # elif args.command == 'generate':
+    #     do_generate(args)
+    # elif args.command == 'populate':
+    #     do_populate(args)
     elif args.command == 'load':
         do_load(args)
     elif args.command == 'create_batch':
         do_create_batch(args)
-    elif args.command == 'workload':
-        do_workload(args)
+    # elif args.command == 'workload':
+    #     do_workload(args)
 
     else:
         raise IntKeyCliException("invalid command: {}".format(args.command))

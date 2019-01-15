@@ -61,8 +61,8 @@ class IntkeyClient:
             self._signer = CryptoFactory(
                 create_context('secp256k1')).new_signer(private_key)
 
-    def set(self, name, value, value1, wait=None):
-        return self._send_transaction('set', name, value, value1, wait=wait)
+    def set(self, name, value, value1, value2, value3, value4, wait=None):
+        return self._send_transaction('set', name, value, value1, value2, value3, value4, wait=wait)
 
     def inc(self, name, value, wait=None):
         return self._send_transaction('inc', name, value, wait=wait)
@@ -148,12 +148,15 @@ class IntkeyClient:
 
         return result.text
 
-    def _send_transaction(self, verb, name, value, value1, wait=None):
+    def _send_transaction(self, verb, name, value, value1, value2, value3, value4, wait=None):
         payload = cbor.dumps({
             'Verb': verb,
             'Name': name,
             'Value': value,
             'Value1': value1,
+            'Value2': value2,
+            'Value3': value3,
+            'Value4': value4,
         })
 
         # Construct the address

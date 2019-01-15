@@ -37,10 +37,14 @@ LOGGER = logging.getLogger(__name__)
 
 
 class IntKeyPayload:
-    def __init__(self, verb, name, value):
+    def __init__(self, verb, name, value, value1, value2, value3, value4):
         self._verb = verb
         self._name = name
         self._value = value
+        self._value1 = value1
+        self._value2 = value2
+        self._value3 = value3
+        self._value4 = value4
 
         self._cbor = None
         self._sha512 = None
@@ -49,7 +53,11 @@ class IntKeyPayload:
         return {
             'Verb': self._verb,
             'Name': self._name,
-            'Value': self._value
+            'Value': self._value,
+            'Value1': self._value1,
+            'Value2': self._value2,
+            'Value3': self._value3,
+            'Value4': self._value4,
         }
 
     def to_cbor(self):
@@ -63,7 +71,7 @@ class IntKeyPayload:
         return self._sha512
 
 
-def create_intkey_transaction(verb, name, value, deps, signer):
+def create_intkey_transaction(verb, name, value, value1, value2, value3, value4, deps, signer):
     """Creates a signed intkey transaction.
 
     Args:
@@ -82,7 +90,7 @@ def create_intkey_transaction(verb, name, value, deps, signer):
             transaction
     """
     payload = IntKeyPayload(
-        verb=verb, name=name, value=value)
+        verb=verb, name=name, value=value, value1=value1, value2=value2, value3=value3, value4=value4)
 
     # The prefix should eventually be looked up from the
     # validator's namespace registry.
@@ -133,12 +141,9 @@ def create_batch(transactions, signer):
 def generate_word():
     return ''.join([random.choice(string.ascii_letters) for _ in range(0, 6)])
 
-
 def generate_word_list(count):
-    #if os.path.isfile('/usr/share/dict/words'):
-    if os.path.isfile('/home/manhattan/Desktop/demo/words'):
-        #with open('/usr/share/dict/words', 'r') as fd:
-        with open('/home/manhattan/Desktop/demo/words', 'r') as fd:
+    if os.path.isfile('/home/manhattan/Desktop/demo/id_device'):
+        with open('/home/manhattan/Desktop/demo/id_device', 'r') as fd:
             return {x.strip(): None for x in fd.readlines()[0:count]}
     else:
         return {generate_word(): None for _ in range(0, count)}
@@ -158,6 +163,10 @@ def do_populate(batches, keys):
             verb='set',
             name=name,
             value=random.randint(9000, 100000),
+            value1=random.randint(9000, 100000),
+            value2=random.randint(9000, 100000),
+            value3=random.randint(9000, 100000),
+            value4=random.randint(9000, 100000),
             deps=[],
             signer=signer)
         total_txn_count += 1
@@ -173,47 +182,47 @@ def do_populate(batches, keys):
     batches.append(batch)
 
 
-def do_generate(args, batches, keys):
-    context = create_context('secp256k1')
-    private_key = context.new_random_private_key()
-    crypto_factory = CryptoFactory(context)
-    signer = crypto_factory.new_signer(private_key)
-
-    start = time.time()
-    total_txn_count = 0
-    for i in range(0, args.count):
-        txns = []
-        for _ in range(0, random.randint(1, args.max_batch_size)):
-            name = random.choice(list(keys))
-            txn = create_intkey_transaction(
-                verb=random.choice(['inc', 'dec']),
-                name=name,
-                value=random.randint(1, 10),
-                deps=[keys[name]],
-                signer=signer)
-            total_txn_count += 1
-            txns.append(txn)
-
-        batch = create_batch(
-            transactions=txns,
-            signer=signer)
-
-        batches.append(batch)
-
-        if i % 100 == 0 and i != 0:
-            stop = time.time()
-
-            txn_count = 0
-            for batch in batches[-100:]:
-                txn_count += len(batch.transactions)
-
-            fmt = 'batches {}, batch/sec: {:.2f}, txns: {}, txns/sec: {:.2f}'
-            print(fmt.format(
-                str(i),
-                100 / (stop - start),
-                str(total_txn_count),
-                txn_count / (stop - start)))
-            start = stop
+# def do_generate(args, batches, keys):
+#     context = create_context('secp256k1')
+#     private_key = context.new_random_private_key()
+#     crypto_factory = CryptoFactory(context)
+#     signer = crypto_factory.new_signer(private_key)
+#
+#     start = time.time()
+#     total_txn_count = 0
+#     for i in range(0, args.count):
+#         txns = []
+#         for _ in range(0, random.randint(1, args.max_batch_size)):
+#             name = random.choice(list(keys))
+#             txn = create_intkey_transaction(
+#                 verb=random.choice(['inc', 'dec']),
+#                 name=name,
+#                 value=random.randint(1, 10),
+#                 deps=[keys[name]],
+#                 signer=signer)
+#             total_txn_count += 1
+#             txns.append(txn)
+#
+#         batch = create_batch(
+#             transactions=txns,
+#             signer=signer)
+#
+#         batches.append(batch)
+#
+#         if i % 100 == 0 and i != 0:
+#             stop = time.time()
+#
+#             txn_count = 0
+#             for batch in batches[-100:]:
+#                 txn_count += len(batch.transactions)
+#
+#             fmt = 'batches {}, batch/sec: {:.2f}, txns: {}, txns/sec: {:.2f}'
+#             print(fmt.format(
+#                 str(i),
+#                 100 / (stop - start),
+#                 str(total_txn_count),
+#                 txn_count / (stop - start)))
+#             start = stop
 
 
 def write_batch_file(args, batches):
@@ -227,7 +236,7 @@ def do_create_batch(args):
     batches = []
     keys = generate_word_list(args.key_count)
     do_populate(batches, keys)
-    do_generate(args, batches, keys)
+    #do_generate(args, batches, keys)
     write_batch_file(args, batches)
 
 
@@ -253,19 +262,19 @@ def add_create_batch_parser(subparsers, parent_parser):
         default='batches.intkey',
         metavar='')
 
-    parser.add_argument(
-        '-c', '--count',
-        type=int,
-        help='number of batches modifying random keys',
-        default=1,
-        metavar='')
+    # parser.add_argument(
+    #     '-c', '--count',
+    #     type=int,
+    #     help='number of batches modifying random keys',
+    #     default=1,
+    #     metavar='')
 
-    parser.add_argument(
-        '-B', '--max-batch-size',
-        type=int,
-        help='max transactions per batch',
-        default=10,
-        metavar='')
+    # parser.add_argument(
+    #     '-B', '--max-batch-size',
+    #     type=int,
+    #     help='max transactions per batch',
+    #     default=10,
+    #     metavar='')
 
     parser.add_argument(
         '-K', '--key-count',
