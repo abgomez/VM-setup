@@ -40,7 +40,7 @@ node n2 {
 	sawtooth keygen
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peering dynamic &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
@@ -67,8 +67,8 @@ node n3 {
 	!
     }
     canvas c1
-    iconcoords {180.0 251.0}
-    labelcoords {180.0 283.0}
+    iconcoords {166.0 264.0}
+    labelcoords {166.0 296.0}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
@@ -518,8 +518,8 @@ node n11 {
 	!
     }
     canvas c1
-    iconcoords {718.0 478.0}
-    labelcoords {718.0 510.0}
+    iconcoords {719.0 478.0}
+    labelcoords {719.0 510.0}
     custom-config {
 	custom-config-id service:UserDefined
 	custom-command UserDefined
@@ -946,8 +946,8 @@ node n15 {
 	!
     }
     canvas c1
-    iconcoords {410.0 482.0}
-    labelcoords {410.0 514.0}
+    iconcoords {430.0 480.0}
+    labelcoords {430.0 512.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
@@ -1056,7 +1056,7 @@ node n18 {
 	
 	
 	#validator
-	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peers tcp://10.0.3.20:1003,tcp://10.0.13.20:1003,tcp://10.0.13.21:1003,tcp://10.0.13.22:1003 &
+	sawtooth-validator -vv --bind component:tcp://127.0.0.1:1001 --bind network:tcp://$IP:1003 --endpoint tcp://$IP:1003 --peering dynamic --peers tcp://10.0.3.20:1003 &
 	
 	#rest api
 	sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
