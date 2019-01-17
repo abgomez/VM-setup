@@ -48,7 +48,7 @@ node n2 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -181,7 +181,7 @@ node n4 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -238,7 +238,7 @@ node n5 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -295,7 +295,7 @@ node n6 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -363,7 +363,7 @@ node n8 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -431,7 +431,7 @@ node n9 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -499,7 +499,7 @@ node n10 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -567,7 +567,7 @@ node n11 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -635,7 +635,7 @@ node n12 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -731,7 +731,7 @@ node n14 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -878,8 +878,8 @@ node n17 {
 	!
     }
     canvas c1
-    iconcoords {241.0 453.0}
-    labelcoords {241.0 485.0}
+    iconcoords {242.0 454.0}
+    labelcoords {242.0 486.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
@@ -928,7 +928,7 @@ node n17 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -996,7 +996,7 @@ node n15 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}
@@ -1014,8 +1014,8 @@ node n18 {
 	!
     }
     canvas c1
-    iconcoords {309.0 520.0}
-    labelcoords {309.0 552.0}
+    iconcoords {308.0 519.0}
+    labelcoords {308.0 551.0}
     interface-peer {eth0 n16}
     custom-config {
 	custom-config-id service:UserDefined
@@ -1064,7 +1064,7 @@ node n18 {
 	#processors
 	settings-tp -v --connect tcp://127.0.0.1:1001 &
 	poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-	intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+	python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
 	}
     }
     services {DefaultRoute UserDefined}

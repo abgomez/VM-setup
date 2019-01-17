@@ -51,4 +51,4 @@ sawtooth-rest-api -v --bind 127.0.0.1:1002 --connect 127.0.0.1:1001 &
 #processors
 settings-tp -v --connect tcp://127.0.0.1:1001 &
 poet-validator-registry-tp --connect tcp://127.0.0.1:1001 &
-intkey-tp-python -v --connect tcp://127.0.0.1:1001 &
+python3 /home/manhattan/Desktop/demo/bin/int_key-tp -v --connect tcp://127.0.0.1:1001 &
