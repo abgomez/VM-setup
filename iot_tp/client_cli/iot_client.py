@@ -42,7 +42,6 @@ def _get_metadata(image_path):
     meta_hash = _sha512(yaml.dump(info).encode('utf-8'))[24:]
     for tag, value in info.items():
         key = TAGS.get(tag, tag)
-        #print (key)
         if key == 'GPSInfo' \
            or key == 'Make' \
            or key == 'Model' \
@@ -52,9 +51,7 @@ def _get_metadata(image_path):
         elif key == 'DateTime':
             image_meta['ModifyDate'] = str(value)
     image_meta['Hash'] = meta_hash
-    print (image_meta)
     return image_meta
-
 
 class IoTClient:
     def __init__(self, url, keyfile=None):
@@ -85,15 +82,106 @@ class IoTClient:
             return "Unable to open Image"
         return self._send_transaction(device_id, metadata, timestamp)
 
+    def list(self):
+        result = self._send_request(
+            "state?address={}".format(self._get_prefix()))
+
+        try:
+            encoded_entries = yaml.safe_load(result)["data"]
+
+            return [
+                cbor.loads(base64.b64decode(entry["data"]))
+                for entry in encoded_entries
+            ]
+        except BaseException:
+            return None
+
+    def _get_prefix(self):
+        return _sha512('iot-tp'.encode('utf-8'))[0:6]
+
+    def _get_address(self, metadata):
+        prefix = self._get_prefix()
+        txn_address = _sha512(yaml.dump(metadata).encode('utf-8'))[64:]
+        return prefix + txn_address
+
+    def _send_request(self, suffix, data=None, content_type=None, name=None):
+        if self.url.startswith("http://"):
+            url = "{}/{}".format(self.url, suffix)
+        else:
+            url = "http://{}/{}".format(self.url, suffix)
+
+        headers = {}
+
+        if content_type is not None:
+            headers['Content-Type'] = content_type
+
+        try:
+            if data is not None:
+                result = requests.post(url, headers=headers, data=data)
+            else:
+                result = requests.get(url, headers=headers)
+
+            if result.status_code == 4004:
+                raise IoTClient("No such key: {}".format(name))
+            elif not result.ok:
+                raise IoTClient("Error {}: {}".format(result.status_code, result.reason))
+        except requests.ConnectionError as err:
+            raise IoTClient('Failed to connect to REST API: {}'.format(err))
+        except BaseException as err:
+            raise IoTClient(err)
+
+        return result.text
+
     def _send_transaction(self, device_id, metadata, timestamp):
         payload = cbor.dumps({
             'device_id' : device_id,
             'metadata'  : metadata,
             'timestamp' :timestamp,
         })
-        print ("CBOR")
-        print (payload)
-        pay = cbor.loads(payload)
-        print ("DIC")
-        print (pay)
-        #return (device_id + metadata + timestamp)
+
+        address = self._get_address(metadata)
+
+        header = TransactionHeader(
+            signer_public_key=self._signer.get_public_key().as_hex(),
+            family_name="iot-tp",
+            family_version="1.0",
+            inputs=[address],
+            outputs=[address],
+            dependencies=[],
+            payload_sha512=_sha512(payload),
+            batcher_public_key=self._signer.get_public_key().as_hex(),
+            nonce=hex(random.randint(0, 2**64))
+        ).SerializeToString()
+
+        signature = self._signer.sign(header)
+
+        transaction = Transaction(
+            header=header,
+            payload=payload,
+            header_signature=signature
+        )
+
+        batch_list = self._create_batch_list([transaction])
+        batch_id = batch_list.batches[0].header_signature
+
+        return self._send_request(
+            "batches", batch_list.SerializeToString(),
+            'application/octet-stream',
+        )
+
+    def _create_batch_list(self, transactions):
+        transaction_signatures = [t.header_signature for t in transactions]
+
+        header = BatchHeader(
+            signer_public_key=self._signer.get_public_key().as_hex(),
+            transaction_ids=transaction_signatures
+        ).SerializeToString()
+
+        signature = self._signer.sign(header)
+
+        batch = Batch(
+            header=header,
+            transactions=transactions,
+            header_signature=signature)
+
+        return BatchList(batches=[batch])

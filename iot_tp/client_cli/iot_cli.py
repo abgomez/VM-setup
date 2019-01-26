@@ -4,6 +4,8 @@ import logging
 import os
 import sys
 import traceback
+import cbor
+import yaml
 
 from pprint import pprint
 from PIL import Image
@@ -14,7 +16,7 @@ from client_cli.exceptions import IoTException
 from client_cli.iot_client import IoTClient
 
 DISTRIBUTION_NAME = 'iot-tp'
-DEFAULT_URL = 'http://127.0.0.1:1002'
+DEFAULT_URL = 'http://127.0.0.1:8008'
 
 def create_console_handler(verbose_level):
     clog = logging.StreamHandler()
@@ -66,6 +68,7 @@ def create_parser(prog_name):
     subparsers = parser.add_subparsers(title='subcommands', dest='command')
 
     add_send_image_parser(subparsers, parent_parser)
+    add_list_image_parser(subparsers, parent_parser)
 
     return parser
 
@@ -111,6 +114,29 @@ def send_image(args):
     response = client.send(image_path)
     print(response)
 
+def add_list_image_parser(subparsers, parent_parser):
+    message = 'Shows the values of all transactions in state.'
+
+    parser = subparsers.add_parser(
+        'list',
+        parents=[parent_parser],
+        description=message,
+        help='Displays all iot transactions')
+
+    parser.add_argument(
+        '--url',
+        type=str,
+        help='specify URL of REST API')
+
+def list_image(args):
+    client = _get_client(args, False)
+    results = client.list()
+    #pprint (results)
+    for txns in results:
+        for txn_id, txn_info in txns.items():
+            content = cbor.loads(txn_info)
+            pprint (content)
+
 def _get_client(args, read_key_file=True):
     return IoTClient(
         url=DEFAULT_URL if args.url is None else args.url,
@@ -147,6 +173,10 @@ def main(prog_name=os.path.basename(sys.argv[0]), args=None):
 
     if args.command == 'send':
         send_image(args)
+    elif args.command == 'list':
+        list_image(args)
+    else:
+        raise IoTException("Invalid command: {}".format(args.command))
 
 def main_wrapper():
     try:
